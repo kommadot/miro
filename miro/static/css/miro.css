@@ -1,0 +1,18 @@
+body{
+	background-color: black;
+}
+h2{
+	color: white;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+#textcolor {
+    color: white;
+ }
+.loginform{
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	color:white;
+ }

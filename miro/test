@@ -1,0 +1,6 @@
+#import mysql_connect as mc
+#mc.regist('asdf','asdf','asdf')
+from mysql_connect import *
+#print (db_face_reg('asdf','9876'))
+print (db_make_faceid())
+#print (db_login('asdf','asdf'))

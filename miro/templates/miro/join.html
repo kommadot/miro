@@ -1,0 +1,12 @@
+{% extends 'miro/base.html' %}
+ {% block content %}
+
+  <h2>회원가입</h2>
+<form method="post" action="">
+    {% csrf_token %}
+    <div class="loginform">
+    {{ form.as_p }}
+</div>
+    <input type="submit" value="회원가입" />
+</form>
+ {% endblock %}
