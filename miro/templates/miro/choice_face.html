@@ -1,0 +1,7 @@
+{% extends 'miro/base.html' %}
+ {% block content %}
+<h2>얼굴 등록 하시겠습니까?</h2>
+<a href="{% url 'face_reg_view' %}"><button>얼굴등록</button></a>
+<a href="{% url 'clock' %}"><button>아니요</button></a>
+
+  {% endblock %}
