@@ -7,27 +7,31 @@ from django.http import HttpResponse
 import requests
 from .mysql_connect import *
 import json
+from .serialLib import serialAPI
+
 def regist_view(request):
     url = "http://war.sejongssg.kr:30980"
     url+="/user"
+
     #if request.session.has_key('token'):
     #    return redirect('clock')
     if request.method=="POST":
-        form = RegistForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             user_id = request.POST['ID']
             user_pw = request.POST['PW']
-            user_name = request.POST['NAME']
+            #user_name = request.POST['NAME']
             data = dict(
                 ID=user_id,
                 PW=user_pw,
-                NAME=user_name
+                #NAME=user_name
             )
             res = requests.post(url=url,data=data)
-            db_regist(user_id,user_pw,user_name)
+            db_regist(str(user_id),str(user_pw),'dfaaaa22')
             if res.status_code==200:
                 request.session['id']=user_id
-                return redirect('login_view')
+                #return HttpResponse('asdf')
+                return redirect('choice_face')
         return redirect('regist_view')
     else :
         form = UserForm()
@@ -75,12 +79,46 @@ def login_view(request):
     else :
         form = UserForm()
     return render(request,'miro/login.html',{'form':form})
+def choice_face(request):
+    return render(request,'miro/choice_face.html')
+
 def face_reg_view(request):
+    SL = serialAPI()
+    SL.login()
     faceid = db_make_faceid()
-    #얼굴등록:
-        db_face_reg(faceid,request.session['id'])
+    if SL.userRegistration(faceid)=="Success":
+        a=str(request.session['id'])
+        db_face_reg(faceid,a)
+        SL.logout()
         return redirect('clock')
-    return render(request,'miro/face_reg.html')
+    else:
+        SL.logout()
+        return HttpResponse('ERROR')
+    return render(request,'miro/face_reg_V.html')
+
+def face_login_view(request):
+    url = "http://war.sejongssg.kr:30980"
+    url+="/user"
+    SL = serialAPI()
+    SL.login()
+    faceid = SL.userRecognition()
+    if faceid=='Fail':
+        return HttpResponse('Face Recognition Fail')
+    user_info=db_face_login(faceid)
+    data = dict(
+        ID=user_info[0],
+        PW=user_info[1]
+    )
+    res = requests.put(url=url,data=data)
+    if res.status_code==200:
+        user_data=res.text
+        user_data =json.loads(user_data)
+        request.session['token']=user_data['token']
+        request.session['id']=user_info[0]
+        return redirect('clock')
+    else :
+        return redirect('login_view')
+    return render(request,'miro/face_log.html')
 
 def clock(request):
     return render(request, 'miro/clock.html')
