@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.shortcuts import redirect
-from .form import UserForm
+from .form import UsersForm
 from .form import RegistForm
 from django.http import HttpResponse
 import requests
@@ -16,41 +16,39 @@ def regist_view(request):
     #if request.session.has_key('token'):
     #    return redirect('clock')
     if request.method=="POST":
-        form = UserForm(request.POST)
+        form = RegistForm(request.POST)
         if form.is_valid():
-            user_id = request.POST['ID']
-            user_pw = request.POST['PW']
-            #user_name = request.POST['NAME']
+            user_id = request.POST['user_id']
+            user_pw = request.POST['user_pw']
+            user_name = request.POST['user_name']
             data = dict(
                 ID=user_id,
                 PW=user_pw,
-                #NAME=user_name
+                NAME=user_name
             )
             res = requests.post(url=url,data=data)
-            db_regist(str(user_id),str(user_pw),'dfaaaa22')
+            db_regist(str(user_id),str(user_pw),str(user_name))
             if res.status_code==200:
                 request.session['id']=user_id
-                #return HttpResponse('asdf')
                 return redirect('choice_face')
         return redirect('regist_view')
     else :
-        form = UserForm()
+        form = RegistForm()
     return render(request,'miro/join.html',{'form':form})
 def logout_view(request):
     url = "http://war.sejongssg.kr:30980"
     url+="/user"
-    if request.session.has_key('token'):
-        return HttpResponse("ERORR!!!!!!!!!!!!!!!!!!!!!!!!123!!!")
-        data = dict(
-            token=request.session['token']
-            )
-        res=requests.delete(url=url,data=data)
-        if res.status_code==200:
-            del reqeust.session['token']
-            return redirect('login_view')
-        else :
-           return HttpResponse("ERORR!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    return redirect('login_view')
+    #if request.session.has_key('token'):
+    data = dict(
+        token=request.session['token']
+        )
+    res=requests.delete(url=url,data=data)
+    if res.status_code==200:
+        del request.session['token']
+        return redirect('login_view')
+    else :
+       return HttpResponse("ERORR!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    return render(request, 'miro/logout.html')
 
 
 def login_view(request):
@@ -59,10 +57,10 @@ def login_view(request):
     #if request.session.has_key('token'):
     #    return redirect('clock')
     if request.method=="POST":
-        form = UserForm(request.POST)
+        form = UsersForm(request.POST)
         if form.is_valid():
-            user_id = request.POST['ID']
-            user_pw = request.POST['PW']
+            user_id = request.POST['user_id']
+            user_pw = request.POST['user_pw']
             data = dict(
                 ID=user_id,
                 PW=user_pw
@@ -77,7 +75,7 @@ def login_view(request):
             else :
                 return redirect('login_view')
     else :
-        form = UserForm()
+        form = UsersForm()
     return render(request,'miro/login.html',{'form':form})
 def choice_face(request):
     return render(request,'miro/choice_face.html')

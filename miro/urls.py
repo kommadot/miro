@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib import admin
 from . import views
 
 urlpatterns = [
@@ -10,4 +11,5 @@ urlpatterns = [
     url(r'^face_reg/$',views.face_reg_view,name='face_reg_view'),
     url(r'^face_login/$',views.face_login_view,name='face_login_view'),
     url(r'^choice_face/$',views.choice_face,name='choice_face'),
+    url(r'^admin/', admin.site.urls),
 ]
