@@ -132,8 +132,8 @@ def message_view(request):
     message_data=json.loads(message_data)
     #if not memo_data['result']=='success':
     #return redirect('login_view')
-    return render(request,'miro/message.html',message_data)
-    
+    return render(request,'miro/message.html',{'messages':message_data})
+
 
 
 

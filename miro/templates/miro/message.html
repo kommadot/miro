@@ -1,12 +1,19 @@
 {% extends 'miro/base.html' %}
  {% block content %}
-<h2>메모데스~</h2>	
-<h2>{{message_data}}</h2>
-	{%for message in message_data %}
+	<h2>일정</h2>
+	{% for scheduled in messages.schedule %}
 	<tr>
-		<td>{{message.senderID}}</td>
-		<td>{{message.contents}}</td>
-		<td>{{message.date_time}}</td>
+		<p><td>날짜 : {{scheduled.date_time}}</td></p>
+		<p><td>내용 : {{scheduled.contents}}</td></p>
+
+	</tr>
+	{% endfor %}
+	<h2>메시지</h2>
+	{% for messaged in messages.message %}
+	<tr>
+		<p><td>보낸사람 : {{messaged.senderID}}</td></p>
+		<p><td>내용 : <textarea style="color: white; background-color: black; resize:none;" label="asd" readonly>{{messaged.contents}}</textarea></td></p>
+		<p><td>날짜 : {{messaged.date_time}}</td></p></br>
 	</tr>
 	{% endfor %}
  {% endblock %}
