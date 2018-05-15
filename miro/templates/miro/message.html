@@ -1,0 +1,12 @@
+{% extends 'miro/base.html' %}
+ {% block content %}
+<h2>메모데스~</h2>	
+<h2>{{message_data}}</h2>
+	{%for message in message_data %}
+	<tr>
+		<td>{{message.senderID}}</td>
+		<td>{{message.contents}}</td>
+		<td>{{message.date_time}}</td>
+	</tr>
+	{% endfor %}
+ {% endblock %}

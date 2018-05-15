@@ -13,7 +13,7 @@ def regist_view(request):
     url = "http://war.sejongssg.kr:30980"
     url+="/user"
 
-    #if request.session.has_key('token'):
+    #if request.session.has_key('session'):
     #    return redirect('clock')
     if request.method=="POST":
         form = RegistForm(request.POST)
@@ -38,13 +38,13 @@ def regist_view(request):
 def logout_view(request):
     url = "http://war.sejongssg.kr:30980"
     url+="/user"
-    #if request.session.has_key('token'):
+    #if request.session.has_key('session'):
     data = dict(
-        token=request.session['token']
+        session=request.session['session']
         )
     res=requests.delete(url=url,data=data)
     if res.status_code==200:
-        del request.session['token']
+        del request.session['session']
         return redirect('login_view')
     else :
        return HttpResponse("ERORR!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -54,7 +54,7 @@ def logout_view(request):
 def login_view(request):
     url = "http://war.sejongssg.kr:30980"
     url+="/user"
-    #if request.session.has_key('token'):
+    #if request.session.has_key('session'):
     #    return redirect('clock')
     if request.method=="POST":
         form = UsersForm(request.POST)
@@ -69,7 +69,7 @@ def login_view(request):
             if res.status_code==200:
                 user_data=res.text
                 user_data =json.loads(user_data)
-                request.session['token']=user_data['token']
+                request.session['session']=user_data['session']
                 request.session['id']=user_id
                 return redirect('clock')
             else :
@@ -111,7 +111,7 @@ def face_login_view(request):
     if res.status_code==200:
         user_data=res.text
         user_data =json.loads(user_data)
-        request.session['token']=user_data['token']
+        request.session['session']=user_data['session']
         request.session['id']=user_info[0]
         return redirect('clock')
     else :
@@ -120,3 +120,21 @@ def face_login_view(request):
 
 def clock(request):
     return render(request, 'miro/clock.html')
+
+def message_view(request):
+    url = "http://war.sejongssg.kr:30980"
+    url+="/user/message/1"
+    data = dict(
+        session = request.session['session']
+    )
+    res = requests.post(url=url,data=data)
+    message_data=res.text
+    message_data=json.loads(message_data)
+    #if not memo_data['result']=='success':
+    #return redirect('login_view')
+    return render(request,'miro/message.html',message_data)
+    
+
+
+
+
