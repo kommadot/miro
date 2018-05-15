@@ -28,7 +28,9 @@ def regist_view(request):
             )
             res = requests.post(url=url,data=data)
             db_regist(str(user_id),str(user_pw),str(user_name))
-            if res.status_code==200:
+            user_data=res.text
+            user_data=json.loads(user_data)
+            if user_data['result']=='success':
                 request.session['id']=user_id
                 return redirect('choice_face')
         return redirect('regist_view')
@@ -66,9 +68,10 @@ def login_view(request):
                 PW=user_pw
             )
             res = requests.put(url=url,data=data)
-            if res.status_code==200:
-                user_data=res.text
-                user_data =json.loads(user_data)
+            
+            user_data=res.text
+            user_data =json.loads(user_data)
+            if user_data['result']=='success':
                 request.session['session']=user_data['session']
                 request.session['id']=user_id
                 return redirect('clock')
