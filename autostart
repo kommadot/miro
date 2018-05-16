@@ -1,0 +1,7 @@
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+#@xscreensaver -no-splash
+#@point-rpi
+@/home/pi/startkiosk.sh
+#@chromium --noerrdialogs --kiosk http://www.localhost.com:8000 --incognito
+@unclutter -idle 0
