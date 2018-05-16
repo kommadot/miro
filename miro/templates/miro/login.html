@@ -1,15 +1,17 @@
 {% extends 'miro/base.html' %}
 	{% block content %}
+	<div class="loginform">
   <h2>로그인</h2>
+
 <form method="post" action="">
     {% csrf_token %}
-    <div class="loginform" position="absolute">
+
     {{ form.as_p }}
-</div>
+
     <input type="submit" value="로그인" />
 </form>
 
 <a href="{% url 'regist_view' %}"><button>회원가입</button></a>
 <a href="{% url 'face_login_view' %}"><button>얼굴인식로그인</button></a>
-
+</div>
 	{% endblock %}
