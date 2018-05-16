@@ -26,7 +26,7 @@ SECRET_KEY = 'e2w*9lgs&9(ytewnsyqnp%vh^%=nmdx-f-6ds^^@p*%-swbg6n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['war.sejongssg.kr','komad.kr','localhost','192.168.0.4']
+ALLOWED_HOSTS = ['war.sejongssg.kr','komad.kr','localhost','192.168.151.99']
 
 
 # Application definition

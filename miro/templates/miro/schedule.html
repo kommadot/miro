@@ -1,0 +1,12 @@
+{% extends 'miro/base.html' %}
+ {% block content %}
+	<h2>일정</h2>
+	<input type=button value="이전 화면" onClick="javascript:history.go(-1);">
+
+	{% for scheduled in schedules.schedule %}
+	<tr>
+		<p><td>날짜 : {{scheduled.date_time}}</td></p>
+		<p><td>내용 : <textarea style="color: white; background-color: black; resize:none;" label="asd" readonly>{{scheduled.contents}}</textarea></td></p>
+	</tr>
+	{% endfor %}
+ {% endblock %}

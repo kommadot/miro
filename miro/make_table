@@ -1,11 +1,11 @@
-create table user_info{
-	user_name varchar(10) primary key,
-	user_id varchar(20) not null,
+create table user_info()
+	user_name varchar(10) not null,
+	user_id varchar(20) primary key,
 	user_pw varchar(20) not null
-	};
+	);
 
-create table face_info{
+create table face_info()
 	face_id varchar(10) primary key,
 	user_id varchar(20) ,
 	foreign key (user_id) references user_info(user_id)
-};
+);

@@ -91,7 +91,7 @@ def face_reg_view(request):
         a=str(request.session['id'])
         db_face_reg(faceid,a)
         SL.logout()
-        return redirect('clock')
+        return redirect('login_view')
     else:
         SL.logout()
         return HttpResponse('ERROR')
@@ -136,6 +136,19 @@ def message_view(request):
     #if not memo_data['result']=='success':
     #return redirect('login_view')
     return render(request,'miro/message.html',{'messages':message_data})
+
+def schedule_view(request):
+    url = "http://war.sejongssg.kr:30980"
+    url+="/user/schedule/1"
+    data = dict(
+        session = request.session['session']
+    )
+    res = requests.post(url=url,data=data)
+    schedule_data=res.text
+    schedule_data=json.loads(schedule_data)
+    #if not memo_data['result']=='success':
+    #return redirect('login_view')
+    return render(request,'miro/schedule.html',{'schedules':schedule_data})
 
 
 
