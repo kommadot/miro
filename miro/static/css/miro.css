@@ -93,8 +93,9 @@ li.login{
    z-index: 1;
    top:4px;
    left:20px;
-   width:70%;
-   height: 70%;
+   width:500px;
+   height: 340px;
+   left:170px;
 }
 
 #loginID{
