@@ -1,8 +1,10 @@
 body{
 	background-color: black;
-	overflow-y: hidden; 
-	overflow-x: hidden;
 }
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
 h2{
 	color: white;
 	flex-direction: row;

@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^message/$',views.message_view,name='message_view'),
     url(r'^schedule/$',views.schedule_view,name='schedule_view'),
+    url(r'^store/$',views.store_view,name='store_view'),
 ]

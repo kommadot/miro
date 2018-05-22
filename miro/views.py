@@ -24,13 +24,13 @@ def regist_view(request):
             data = dict(
                 ID=user_id,
                 PW=user_pw,
-                NAME=user_name
+                userNAME=user_name
             )
             res = requests.post(url=url,data=data)
-            db_regist(str(user_id),str(user_pw),str(user_name))
             user_data=res.text
             user_data=json.loads(user_data)
             if user_data['result']=='success':
+                db_regist(str(user_id),str(user_pw),str(user_name))
                 request.session['id']=user_id
                 return redirect('choice_face')
         return redirect('regist_view')
@@ -68,12 +68,13 @@ def login_view(request):
                 PW=user_pw
             )
             res = requests.put(url=url,data=data)
-            
             user_data=res.text
             user_data =json.loads(user_data)
             if user_data['result']=='success':
                 request.session['session']=user_data['session']
                 request.session['id']=user_id
+                if db_check_db(user_id,user_pw)==-1:
+                    db_regist(user_id,user_pw,user_data['userNAME'])
                 return redirect('clock')
             else :
                 return redirect('login_view')
@@ -150,6 +151,21 @@ def schedule_view(request):
     #return redirect('login_view')
     return render(request,'miro/schedule.html',{'schedules':schedule_data})
 
+def store_view(request):
+    url = "http://war.sejongssg.kr:30980"
+    url += "/user/store/1"
+    data = dict(
+        session = request.session['session']
+        )
+    res = requests.post(url=url,data=data)
+    store_data=res.text
+    store_data=json.loads(store_data)
+
+    return render(request,'miro/store.html',{'stores':store_data})
+
+def store_list_view(request):
+    url = "http://war.sejongssg.kr:30980"
+    url += "/user/store"
 
 
 
