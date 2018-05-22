@@ -1,17 +1,22 @@
 {% extends 'miro/base.html' %}
-	{% block content %}
-	<div class="loginform">
-  <h2>로그인</h2>
+   {% block content %}
+{% load staticfiles %}
+<div class="loginform">
+<div style="position: absolute;">
+   <img src={%static 'image/login.PNG' %} id="loginIMG" />
+</div>
 
 <form method="post" action="">
     {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <input type="submit" value="로그인" />
+    <div style="position: absolute;">
+       <li class="login" id="loginID"> {{ form.user_id }} </li>
+       <li class="login" id="loginPW"> {{ form.user_pw }} </li>
+       <input type="submit" value="로그인" id="loginSIGNINBTN"/>
+   </div>
 </form>
-
-<a href="{% url 'regist_view' %}"><button>회원가입</button></a>
-<a href="{% url 'face_login_view' %}"><button>얼굴인식로그인</button></a>
+<div style="position: absolute;">
+   <a href="{% url 'regist_view' %}"><button id="loginSIGNUPBTN">회원가입</button></a>
+   <!-- <a href="{% url 'face_login_view' %}"><button>얼굴인식로그인</button></a> -->
 </div>
-	{% endblock %}
+</div>
+   {% endblock %}

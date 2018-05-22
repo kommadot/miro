@@ -1,11 +1,22 @@
 {% extends 'miro/base.html' %}
  {% block content %}
+{% load staticfiles %}
 <div class="registform">
-  <h2>회원가입</h2>
+
+<div style="position: absolute;">
+   <img src={%static 'image/signup.PNG' %} id="signupIMG" />
+</div>
+
 <form method="post" action="">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="회원가입" />
+    <div style="position: absolute;">
+       <li class="login" id="signupID"> {{ form.user_id }} </li>
+       <li class="login" id="signupPW"> {{ form.user_pw }} </li>
+       <li class="login" id="signupNAME"> {{ form.user_name }} </li>
+    </div>
+    <div style="position: absolute;">
+          <input type="submit" value="회원가입" id="signupSIGNUPBTN" />
+   </div>
 </form>
 </div>
  {% endblock %}

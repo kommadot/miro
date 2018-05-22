@@ -1,38 +1,105 @@
 {% extends 'miro/base.html' %}
   {% block content %}
-<script>
-function printTime() {
+  <header>
+    <div>
+      <nav class="main-header">
+        <ul>
+          <a href="{% url 'clock' %}"><li id=click><span>HOME</span></li></a>
+          <a href="{% url 'message_view' %}" ><li >메시지</li></a>
+          <a href="{% url 'schedule_view' %}"><li>일정</li></a>
+          <a href="{% url 'store_view' %}"><li>스토어</li></a>
+          <a href="{% url 'logout_view' %}"><li id="logout_btn">로그아웃</li></a>
+        </ul>
 
-  var clock = document.getElementById("clock");            // 출력할 장소 선택
-  var now = new Date();                                                  // 현재시간
-  var nowTime = now.getFullYear() + "년 " + (now.getMonth()+1) + "월 " + now.getDate() + "일 ";
-  var hour = now.getHours();
-  if (hour>12){
-    hour = hour-12;
-    hour = " 오후"+hour;
+      </nav>
+  </header>
+<body>
+
+<canvas id="canvas" width="400" height="400"
+style="background-color:#000">
+</canvas>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius = canvas.height / 2;
+ctx.translate(radius, radius);
+radius = radius * 0.90
+setInterval(drawClock, 1000);
+
+function drawClock() {
+  drawFace(ctx, radius);
+  drawNumbers(ctx, radius);
+  drawTime(ctx, radius);
+}
+
+function drawFace(ctx, radius) {
+  var grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, 2*Math.PI);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+  grad.addColorStop(0, '#333');
+  grad.addColorStop(0.5, 'white');
+  grad.addColorStop(1, '#333');
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = radius*0.1;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+  ctx.fillStyle = '#333';
+  ctx.fill();
+}
+
+function drawNumbers(ctx, radius) {
+  var ang;
+  var num;
+  ctx.font = radius*0.15 + "px arial";
+  ctx.textBaseline="middle";
+  ctx.textAlign="center";
+  for(num = 1; num < 13; num++){
+    ang = num * Math.PI / 6;
+    ctx.rotate(ang);
+    ctx.translate(0, -radius*0.85);
+    ctx.rotate(-ang);
+    ctx.fillText(num.toString(), 0, 0);
+    ctx.rotate(ang);
+    ctx.translate(0, radius*0.85);
+    ctx.rotate(-ang);
   }
-  hour = hour + "시 ";
-  var least = now.getMinutes() + "분 " + now.getSeconds() + "초";
-  var nowTime = nowTime+hour+least;
-  clock.style.fontSize="30px";
-  clock.style.color="white";
-  clock.innerHTML = nowTime;
-  change();
-  setTimeout("printTime()",1000);         // setTimeout(“실행할함수”,시간) 시간은1초의 경우 1000
 }
-window.onload = function() {                         // 페이지가 로딩되면 실행
-  printTime();
+
+function drawTime(ctx, radius){
+    var now = new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    //hour
+    hour=hour%12;
+    hour=(hour*Math.PI/6)+
+    (minute*Math.PI/(6*60))+
+    (second*Math.PI/(360*60));
+    drawHand(ctx, hour, radius*0.5, radius*0.07);
+    //minute
+    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+    drawHand(ctx, minute, radius*0.8, radius*0.07);
+    // second
+    second=(second*Math.PI/30);
+    drawHand(ctx, second, radius*0.9, radius*0.02);
 }
-function change(){
-  var x = document.getElementById("a");
-  var s = document.getElementById("b");
-  x.style.fontSize="30px";
-  s.style.fontSize="30px";
-  x.style.color="white";
-  s.style.color="white";
+
+function drawHand(ctx, pos, length, width) {
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
 }
 </script>
 <body>
-<span id="a">현재 </span> <span id="clock"></span><span id="b"> 입니다</span><br/>
 </body>
   {% endblock %}

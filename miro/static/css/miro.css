@@ -37,21 +37,22 @@ nav.main-header{
 	display: inline-block;
 	z-index:999;
 	text-align: center;
-	background-color: #B4C7D2;
+	background-color: #9ccc65;
+	padding: -1px;
 }
 nav.main-header ul li{
 	display: inline-block;
 	list-style: none;
 	margin: 0;
 	left:0px;
-	height: 60px;
+	height: 64px;
 	padding:0 2%;
 	width: auto;
 	position: relative;
-	background-color: #B4C7D2;
+	background-color: #9ccc65;
 	text-align: center;
 	vertical-align: middle;
-	line-height: 80px;
+	line-height: 70px;
 	color: #fff;
 	font-size: 25px;
 }
@@ -60,4 +61,119 @@ nav.main-header ul li a {
 	border: none;
 	font-size: 20px;
 	color: #fff;
+}
+li.message{
+	color:#fff;
+	list-style: none;
+}
+textarea.message{
+	border :none;
+	background-color: #8bc34a; 
+	resize:none;
+	color : black;
+	opacity: 0.9;
+	border-radius: 5px;
+}
+#click{
+	background-color: #8bc34a;
+}
+#logout_btn{
+	position: absolute;
+	width: 70px;
+	font-size:15px;
+	right:20px;
+	left:80%;
+}
+li.login{
+   list-style: none;
+}
+
+#loginIMG{
+   position:relative;
+   z-index: 1;
+   top:4px;
+   left:20px;
+   width:70%;
+   height: 70%;
+}
+
+#loginID{
+   position:relative;
+   z-index: 2;
+   top:107px;
+   left:260px;
+}
+
+#loginPW{
+   position:relative;
+   z-index: 2;
+   top:137px;
+   left:260px;
+}
+
+#loginSIGNINBTN{
+   position:relative;
+   z-index: 2;   
+   top:170px;
+   left:175px;
+   width:160px;
+   height:35px;
+   opacity: 0.0;
+}
+
+#loginSIGNUPBTN{
+   position:relative;
+   z-index: 2;
+   top:230px;
+   left:450px;
+   width:160px;
+   height:35px;
+   opacity: 0.0;
+}
+
+#signupIMG{
+   position:relative;
+   z-index: 1;
+   top:0px;
+   left:20px;
+   width: 70%;
+   height: 70%;
+}
+
+#signupID{
+   position:relative;
+   z-index: 2;
+   top:89px;
+   left:250px;
+}
+
+#signupPW{
+   position:relative;
+   z-index: 2;
+   top:114px;
+   left:250px;
+}
+
+#signupNAME{
+   position:relative;
+   z-index: 2;
+   top:137px;
+   left:250px;
+}
+
+#signupSIGNUPBTN{
+   position:relative;
+   z-index: 2;
+   top:245px;
+   left:240px;
+   width:350px;
+   height:35px;
+   opacity: 0.0;
+}
+
+.charfieldClass{
+   width:100%;
+   height:30px;
+   border-style: none;
+   font-size: 22px;
 }

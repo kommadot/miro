@@ -1,7 +1,18 @@
 {% extends 'miro/base.html' %}
  {% block content %}
-	<h2>일정</h2>
+  	<header>
+		<div>
+			<nav class="main-header">
+				<ul>
+					<a href="{% url 'clock' %}"><li><span>HOME</span></li></a>
+					<a href="{% url 'message_view' %}" ><li>메시지</li></a>
+					<a href="{% url 'schedule_view' %}"><li id=click>일정</li></a>
+					<a href="{% url 'store_view' %}"><li>스토어</li></a>
+					<a href="{% url 'logout_view' %}"><li id="logout_btn">로그아웃</li></a>
+				</ul>
+			</nav>
 
+	</header>
 	{% for scheduled in schedules.schedule %}
 	<tr>
 		<p><td>날짜 : {{scheduled.date_time}}</td></p>
