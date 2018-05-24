@@ -1,5 +1,7 @@
 {% extends 'miro/base.html' %}
  {% block content %}
 <h2>얼굴을 중앙에 맞게 대주세요</h2>
-
+<script>
+window.location.href="{% url 'face_login_view' %}"
+</script>
   {% endblock %}

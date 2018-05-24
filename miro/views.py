@@ -8,6 +8,16 @@ import requests
 from .mysql_connect import *
 import json
 from .serialLib import serialAPI
+from .screensaver import screensaverAPI
+
+def screen_saver_view(request):
+    return render(request, 'miro/screen_saver.html')
+
+def ir_input_view(request):
+    SSL = screensaverAPI()
+    SSL.test()
+    #return redirect('login_view')
+    return render(request, 'miro/face_log.html')
 
 def regist_view(request):
     url = "http://war.sejongssg.kr:30980"
