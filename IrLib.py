@@ -3,12 +3,12 @@ import time
 
 io.setmode(io.BCM)
 
-pin = 23
+pin = 7
 
-io.setup(23, io.IN)
+io.setup(pin, io.IN)
 
 while 1:
-    if io.input(23)==True:
+    if io.input(pin)==True:
         print ("Detected")
     else:
         print ("Not Detected")

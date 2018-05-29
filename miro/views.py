@@ -12,7 +12,8 @@ from .screensaver import screensaverAPI
 
 def screen_saver_view(request):
     return render(request, 'miro/screen_saver.html')
-
+def wifi_view(request):
+    return render(request, 'miro/wifi_set.html')
 def ir_input_view(request):
     SSL = screensaverAPI()
     SSL.test()
@@ -40,9 +41,10 @@ def regist_view(request):
             user_data=res.text
             user_data=json.loads(user_data)
             if user_data['result']=='success':
-                db_regist(str(user_id),str(user_pw),str(user_name))
-                request.session['id']=user_id
-                return redirect('choice_face')
+                #db_regist(str(user_id),str(user_pw),str(user_name))
+                #request.session['id']=user_id
+                #return redirect('choice_face')
+                return redirect('login_view')
         return redirect('regist_view')
     else :
         form = RegistForm()
@@ -57,7 +59,7 @@ def logout_view(request):
     res=requests.delete(url=url,data=data)
     if res.status_code==200:
         del request.session['session']
-        return redirect('login_view')
+        return redirect('screen_saver_view')
     else :
        return HttpResponse("ERORR!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     return render(request, 'miro/logout.html')
@@ -83,9 +85,14 @@ def login_view(request):
             if user_data['result']=='success':
                 request.session['session']=user_data['session']
                 request.session['id']=user_id
-                if db_check_db(user_id,user_pw)==-1:
-                    db_regist(user_id,user_pw,user_data['userNAME'])
-                return redirect('clock')
+                request.session['pw']=user_pw
+                request.session['name']=user_data['userNAME']
+                #if db_check_db(user_id,user_pw)==-1:
+                #    db_regist(user_id,user_pw,user_data['userNAME'])
+                if db_check_db(user_id, user_pw) == -1:
+                    return redirect('choice_face')
+                else:
+                    return redirect('clock')
             else :
                 return redirect('login_view')
     else :
@@ -99,10 +106,11 @@ def face_reg_view(request):
     SL.login()
     faceid = db_make_faceid()
     if SL.userRegistration(faceid)=="Success":
-        a=str(request.session['id'])
-        db_face_reg(faceid,a)
+        #a=str(request.session['id'])
+        db_regist(request.session['id'], request.session['pw'], request.session['name'])
+        db_face_reg(faceid,request.session['id'])
         SL.logout()
-        return redirect('login_view')
+        return redirect('clock')
     else:
         SL.logout()
         return HttpResponse('ERROR')
@@ -115,7 +123,7 @@ def face_login_view(request):
     SL.login()
     faceid = SL.userRecognition()
     if faceid=='Fail':
-        return HttpResponse('Face Recognition Fail')
+        return redirect('login_view')
     user_info=db_face_login(faceid)
     data = dict(
         ID=user_info[0],
