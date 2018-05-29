@@ -1,0 +1,39 @@
+{% extends 'miro/base.html' %}
+ {% block content %}
+{% load staticfiles %}
+   	<header>
+		<div>
+			<nav class="main-header">
+				<ul>
+					<a href="{% url 'clock' %}"><li><span>홈</span></li></a>
+					<a href="{% url 'message_view' %}" ><li>메시지</li></a>
+					<a href="{% url 'schedule_view' %}"><li>일정</li></a>
+					<a href="{% url 'store_view' %}"><li>스토어</li></a>
+					<a href="{% url 'subway_view' %}"><li id=click>지하철</li></a>
+					<a href="{% url 'logout_view' %}"><li id="logout_btn">로그아웃</li></a>
+				</ul>
+			</nav>
+	</header>
+<p id="homeFont">home</p> 
+<p id="depFont">departure</p>
+<p id="destFont">destination</p>
+<img src={%static 'image/home.PNG' %} id="homeIMG" />
+<img src={%static 'image/line.PNG' %} id="lineIMG" />
+<img src={%static 'image/subway.PNG' %} id="subwayIMG" />
+<img src={%static 'image/line.PNG' %} id="line2IMG" />
+<img src={%static 'image/subway.PNG' %} id="subway2IMG" />
+
+<div class="subway_sort">
+	{% for subway in subway.subway %}
+	<br><br><br><br><br><br>
+	<div class="subway_all">
+		<span class="home">home</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="homeTime">{{subway.homeTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="departure">{{subway.departure}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="resultTime">{{subway.resultTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="destination">{{subway.destination}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="endTime">{{subway.endTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</div>
+	{% endfor %}
+</div>
+ {% endblock %}

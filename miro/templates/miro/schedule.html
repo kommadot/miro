@@ -4,10 +4,11 @@
 		<div>
 			<nav class="main-header">
 				<ul>
-					<a href="{% url 'clock' %}"><li><span>HOME</span></li></a>
+					<a href="{% url 'clock' %}"><li><span>홈</span></li></a>
 					<a href="{% url 'message_view' %}" ><li>메시지</li></a>
 					<a href="{% url 'schedule_view' %}"><li id=click>일정</li></a>
 					<a href="{% url 'store_view' %}"><li>스토어</li></a>
+					<a href="{% url 'subway_view' %}"><li>지하철</li></a>
 					<a href="{% url 'logout_view' %}"><li id="logout_btn">로그아웃</li></a>
 				</ul>
 			</nav>
@@ -15,8 +16,8 @@
 	</header>
 	{% for scheduled in schedules.schedule %}
 	<tr>
-		<p><td>날짜 : {{scheduled.date_time}}</td></p>
-		<p><td>내용 : <textarea style="color: white; background-color: black; resize:none;" label="asd" readonly>{{scheduled.contents}}</textarea></td></p>
+		<li class='schedule'><td>{{scheduled.date_time|slice:"5:16"}}</td></li>
+		<li class='schedule'><td><textarea class='schedule' readonly>{{scheduled.contents}}</textarea></td></li>
 	</tr>
 	{% endfor %}
  {% endblock %}

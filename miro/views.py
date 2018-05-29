@@ -173,6 +173,18 @@ def store_view(request):
 
     return render(request,'miro/store.html',{'stores':store_data})
 
+def subway_view(request):
+    url = "http://war.sejongssg.kr:30980"
+    url += "/user/subway/1"
+    data = dict(
+        session = request.session['session']
+        )
+    res = requests.post(url=url, data=data)
+    subway_data=res.text
+    subway_data=json.loads(subway_data)
+    return render(request,'miro/subway.html',{'subway':subway_data})
+
+
 def store_list_view(request):
     url = "http://war.sejongssg.kr:30980"
     url += "/user/store"

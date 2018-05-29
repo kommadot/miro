@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^message/$',views.message_view,name='message_view'),
     url(r'^schedule/$',views.schedule_view,name='schedule_view'),
     url(r'^store/$',views.store_view,name='store_view'),
+    url(r'^subway/$',views.subway_view,name='subway_view'),
 ]
