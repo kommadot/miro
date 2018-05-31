@@ -11,4 +11,4 @@ def set_wifi(ssid,password):
 	os.system("sudo echo '%s' > /etc/network/interfaces" % inter )
 
 
-set_wifi("BrownBread","brownbread1")
+set_wifi("ktEgg_089","moda74384")

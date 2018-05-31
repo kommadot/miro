@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
-from django.shortcuts import redirect
+from django.utils import timezone 
+from django.urls import reverse
+from django.shortcuts import redirect 
 from .form import UsersForm
 from .form import RegistForm
-from django.http import HttpResponse
+from django.http import HttpResponse ,HttpResponseRedirect
 import requests
 from .mysql_connect import *
 import json
@@ -70,6 +71,7 @@ def login_view(request):
     url+="/user"
     #if request.session.has_key('session'):
     #    return redirect('clock')
+    
     if request.method=="POST":
         form = UsersForm(request.POST)
         if form.is_valid():
@@ -113,7 +115,7 @@ def face_reg_view(request):
         return redirect('clock')
     else:
         SL.logout()
-        return HttpResponse('ERROR')
+        return HttpResponseRedirect('/clock/?'+'skip=1')
     return render(request,'miro/face_reg_V.html')
 
 def face_login_view(request):
@@ -141,7 +143,11 @@ def face_login_view(request):
     return render(request,'miro/face_log.html')
 
 def clock(request):
-    return render(request, 'miro/clock.html')
+    skip=request.GET['skip']
+    skip=dict(
+        data=skip
+    )
+    return render(request, 'miro/clock.html',{'skip':skip})
 
 def message_view(request):
     url = "http://war.sejongssg.kr:30980"

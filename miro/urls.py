@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^ir_input/$', views.ir_input_view, name='ir_input_view'),
     url(r'^login/$',views.login_view,name = 'login_view'),
     url(r'^join/$',views.regist_view, name='regist_view'),
+    url(r'^clock/(?P<skip>\d+)/$',views.clock,name='clock'),
     url(r'^clock/$',views.clock,name='clock'),
     url(r'^logout/$',views.logout_view,name='logout_view'),
     url(r'^face_reg/$',views.face_reg_view,name='face_reg_view'),

@@ -292,39 +292,39 @@ li.login{
 	width:400px;
 	height:400px;
 }
-/*
-#home{
-	position:relative;
-	top:30px;
-	left:30px;
+
+.week{
+	position:absolute;
+	font-size:25px;
+	left:10%;
 }
 
-#homeTime{
-	position:relative;
-	top:30px;
-	left:130px;
+.home{
+	position:absolute;
+	font-size:25px;
+	left:21%;
 }
 
-#departure{
-	position:relative;
-	top:30px;
-	left:230px;
+.homeTime{
+	position:absolute;
+	font-size:25px;
+	left:33%;
 }
 
-#resultTime{
-	position:relative;
-	top:30px;
-	left:330px;
+.departure{
+	position:absolute;
+	font-size:25px;
+	left:48%;
 }
 
-#destination{
-	position:relative;
-	top:30px;
-	left:430px;
+.destination{
+	position:absolute;
+	font-size:25px;
+	left:59%;
 }
 
-#endTime{
-	position:relative;
-	top:30px;
-	left:530px;
-}*/
+.endTime{
+	position:absolute;
+	font-size:25px;
+	left:73%;
+}

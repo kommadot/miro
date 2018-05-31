@@ -1,10 +1,11 @@
 {% extends 'miro/base.html' %}
   {% block content %}
+
   <header>
     <div>
       <nav class="main-header">
         <ul>
-          <a href="{% url 'clock' %}"><li id=click><span>홈</span></li></a>
+          <a href="{% url 'clock' %}?skip=0"><li id=click><span>홈</span></li></a>
           <a href="{% url 'message_view' %}" ><li >메시지</li></a>
           <a href="{% url 'schedule_view' %}"><li>일정</li></a>
           <a href="{% url 'store_view' %}"><li>스토어</li></a>
@@ -15,7 +16,7 @@
       </nav>
   </header>
 <body>
-
+    {% if skip.data == '1' %} <script>alert("얼굴 등록이 실패하였습니다.");</script> {% endif %}
 <canvas id="canvas" width="400" height="400"
 style="background-color:#000">
 </canvas>
@@ -102,5 +103,6 @@ function drawHand(ctx, pos, length, width) {
 }
 </script>
 <body>
+
 </body>
   {% endblock %}
