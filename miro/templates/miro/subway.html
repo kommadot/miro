@@ -27,12 +27,20 @@
 	{% for subway in subway.subway %}
 	<br><br><br><br><br><br>
 	<div class="subway_all">
-		<span class="home">home</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="homeTime">{{subway.homeTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="departure">{{subway.departure}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="resultTime">{{subway.resultTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="destination">{{subway.destination}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="endTime">{{subway.endTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<table>
+			<tbody>
+		<tr><td>요일&nbsp;&nbsp;</td><td><span class="week">home</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td><span class="home">{{subway.departure}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td><span class="homeTime"></span>{{subway.destination}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+		<tr>
+		<td>{{subway.week}}&nbsp;&nbsp;</td><td>
+		<span class="departure">{{subway.resultTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td><span class="endTime">{{subway.firstSubwayTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td><span class="destination">{{subway.endTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+	</tr>
+</tbody>
+</table>
 	</div>
 	{% endfor %}
 </div>

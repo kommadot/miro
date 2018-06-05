@@ -50,13 +50,6 @@ def db_face_reg(faceid,id):
 	return 1
 
 def db_make_faceid():
-	#cursor = db.cursor()
-	#while True:
 	faceid = str(str(randint(0,9999)).rjust(4, '0'))
 	return faceid
-	#sql = "select face_id from face_info where face_id='%s'" % (faceid)
-	#cursor.execute(sql)
-	#data = cursor.fetchone()
-	#if data==None:
-	#	return faceid
-	#	time.sleep(1)
+

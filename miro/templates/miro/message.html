@@ -16,8 +16,8 @@
 	</header>
 	{% for messaged in messages.message %}
 	<tr>
-		<li class='message'><td>From.{{messaged.senderID}}   {{messaged.date_time|slice:"5:16"}}</td></li>
-		<li class='message'><td><textarea class='message' readonly>{{messaged.contents}}</textarea></td></li>
+		<li class='message'><td class='sender'>From.{{messaged.senderID}}</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td class='time'>{{messaged.date_time|slice:"5:16"}}</td></li>
+		<li class='messages'><td><textarea class='message' readonly>{{messaged.contents}}</textarea></td></li>
 
 	</tr>
 

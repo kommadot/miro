@@ -10,19 +10,21 @@ from .mysql_connect import *
 import json
 from .serialLib import serialAPI
 from .screensaver import screensaverAPI
-
+import time
+mainurl = "http://35.200.2.43:80"
 def screen_saver_view(request):
     return render(request, 'miro/screen_saver.html')
 def wifi_view(request):
     return render(request, 'miro/wifi_set.html')
 def ir_input_view(request):
+    time.sleep(3)
     SSL = screensaverAPI()
     SSL.test()
     #return redirect('login_view')
     return render(request, 'miro/face_log.html')
 
 def regist_view(request):
-    url = "http://war.sejongssg.kr:30980"
+    url = mainurl
     url+="/user"
 
     #if request.session.has_key('session'):
@@ -51,7 +53,7 @@ def regist_view(request):
         form = RegistForm()
     return render(request,'miro/join.html',{'form':form})
 def logout_view(request):
-    url = "http://war.sejongssg.kr:30980"
+    url = mainurl
     url+="/user"
     #if request.session.has_key('session'):
     data = dict(
@@ -61,17 +63,12 @@ def logout_view(request):
     if res.status_code==200:
         del request.session['session']
         return redirect('screen_saver_view')
-    else :
-       return HttpResponse("ERORR!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     return render(request, 'miro/logout.html')
 
 
 def login_view(request):
-    url = "http://war.sejongssg.kr:30980"
-    url+="/user"
-    #if request.session.has_key('session'):
-    #    return redirect('clock')
-    
+    url = mainurl
+    url+="/user"   
     if request.method=="POST":
         form = UsersForm(request.POST)
         if form.is_valid():
@@ -94,7 +91,7 @@ def login_view(request):
                 if db_check_db(user_id, user_pw) == -1:
                     return redirect('choice_face')
                 else:
-                    return redirect('clock')
+                    return HttpResponseRedirect('/clock/?'+'skip=0')
             else :
                 return redirect('login_view')
     else :
@@ -112,14 +109,14 @@ def face_reg_view(request):
         db_regist(request.session['id'], request.session['pw'], request.session['name'])
         db_face_reg(faceid,request.session['id'])
         SL.logout()
-        return redirect('clock')
+        return HttpResponseRedirect('/clock/?'+'skip=0')
     else:
         SL.logout()
         return HttpResponseRedirect('/clock/?'+'skip=1')
     return render(request,'miro/face_reg_V.html')
 
 def face_login_view(request):
-    url = "http://war.sejongssg.kr:30980"
+    url = mainurl
     url+="/user"
     SL = serialAPI()
     SL.login()
@@ -137,20 +134,21 @@ def face_login_view(request):
         user_data =json.loads(user_data)
         request.session['session']=user_data['session']
         request.session['id']=user_info[0]
-        return redirect('clock')
+        return HttpResponseRedirect('/clock/?'+'skip=0')
     else :
         return redirect('login_view')
     return render(request,'miro/face_log.html')
 
 def clock(request):
     skip=request.GET['skip']
+    uname = request.session['name']
     skip=dict(
         data=skip
     )
-    return render(request, 'miro/clock.html',{'skip':skip})
+    return render(request, 'miro/clock.html',{'skip':skip,'uname':uname})
 
 def message_view(request):
-    url = "http://war.sejongssg.kr:30980"
+    url = mainurl
     url+="/user/message/1"
     data = dict(
         session = request.session['session']
@@ -163,7 +161,7 @@ def message_view(request):
     return render(request,'miro/message.html',{'messages':message_data})
 
 def schedule_view(request):
-    url = "http://war.sejongssg.kr:30980"
+    url = mainurl
     url+="/user/schedule/1"
     data = dict(
         session = request.session['session']
@@ -176,7 +174,7 @@ def schedule_view(request):
     return render(request,'miro/schedule.html',{'schedules':schedule_data})
 
 def store_view(request):
-    url = "http://war.sejongssg.kr:30980"
+    url=mainurl
     url += "/user/store/1"
     data = dict(
         session = request.session['session']
@@ -188,7 +186,7 @@ def store_view(request):
     return render(request,'miro/store.html',{'stores':store_data})
 
 def subway_view(request):
-    url = "http://war.sejongssg.kr:30980"
+    url = mainurl
     url += "/user/subway/1"
     data = dict(
         session = request.session['session']

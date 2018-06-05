@@ -13,7 +13,7 @@ xset s noblank
 #unclutter -idle 0 -root &
 
 # run window manager
-matchbox-window-manager -use_cursor yes -use_titlebar no  &
+#matchbox-window-manager -use_cursor yes -use_titlebar no  &
 
 # run chromuim
 #chromium-browser --noerrdialogs --kiosk --incognito https://www.google.co.kr/
@@ -21,5 +21,5 @@ if [ $# -ne 0 ];
 then
 	        chromium-browser --noerrdialogs --kiosk --incognito $1
 else
-		chromium-browser --noerrdialogs --start-fullscreen http://localhost:8000 
+		chromium-browser --noerrdialogs --disable-crash-reporter --disable-session-crashed-bubble --disable-infobars --start-fullscreen http://localhost:8000 
 fi
