@@ -292,7 +292,7 @@ li.login{
    width:40px;
    height:40px;
 }
-table{
+.subway_sort table{
 	position: absolute;
 	padding:10px;
 	color:white;
